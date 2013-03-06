@@ -15,21 +15,19 @@ namespace Com\App {
 	* @link http://ganners.co.uk
 	* @license LGPL
 	*/
-	
 	class Word_Finder {
 		
 		private $word,
-				$dictionary = array(),
-				$alphabet = array();
+			$dictionary = array(),
+			$alphabet = array();
 		
-		/*
+		/**
 		* Public construct - used to define all required variables
 		* @param (string) $word - The inputted word/letters to be searched
 		* @param (bool) $strict - If the search is strict - which means it must use all letters at least once
 		* @param (bool) $match_letter_count - This will mean it should match the maximum letter count, so the words can't reuse letters
 		* @return void
 		*/
-		
 		public function __construct($word, $strict = FALSE, $match_letter_count = FALSE) {
 			
 			//Sets the word to the lowercase array of letters
@@ -56,12 +54,11 @@ namespace Com\App {
 			
 		}
 		
-		/*
+		/**
 		* Will retrieve the words and perform a sort by string length
 		* @param void
 		* @return void
 		*/
-		
 		public function getWords() {
 		
 			$sortArray = function($a, $b) {
@@ -73,23 +70,21 @@ namespace Com\App {
 		
 		}
 		
-		/*
+		/**
 		* Will read in the dictionary file and return the array
 		* @param (string) $file_name - The location of the dictionary file
 		* @return (array) The dictionary array
 		*/
-		
 		private function getDictionary($file_name) {
 			$dictionary_file = file_get_contents($file_name);
 			return (array) explode("\n", $dictionary_file);
 		}
 		
-		/*
+		/**
 		* This will create an alphabet based on the letters that aren't in the inputted word.
 		* @param void
 		* @return (array) $alphabet - The alphabet containing words not in the object's word
 		*/
-		
 		private function getFilteredAlphabetArray() {
 		
 			$alphabet = str_split("abcdefghijklmnopqrstuvwxyz");
@@ -106,12 +101,11 @@ namespace Com\App {
 			
 		}
 		
-		/*
+		/**
 		* This will filter out words which don't contain any letters from the formatted alphabet
 		* @param void
 		* @return void
 		*/
-		
 		private function filterLoose() {
 			foreach($this->alphabet as $letter) {
 				foreach($this->dictionary as $key => $word) {
@@ -124,12 +118,11 @@ namespace Com\App {
 			
 		}
 		
-		/*
+		/**
 		* This will filter out words which don't contain all letters from the formatted alphabet
 		* @param void
 		* @return void
 		*/
-		
 		private function filterStrict() {
 			foreach($this->word as $wordLetter) {
 				foreach($this->dictionary as $key => $word) {
@@ -141,12 +134,11 @@ namespace Com\App {
 			}
 		}
 		
-		/*
+		/**
 		* This will filter out words which don't contain more individual letters than that in the original word
 		* @param void
 		* @return void
 		*/
-		
 		private function matchLetterCounts() {
 		
 			foreach($this->dictionary as $key => $dictionary_word) {
